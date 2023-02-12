@@ -13,12 +13,12 @@ import (
 
 type Shutdown func(context.Context)
 
-func Start(vars config.Server) Shutdown {
+func Start(vars *config.Vars) Shutdown {
 
-	h := mux.New()
+	h := mux.Must(vars.Handler)
 
 	srvr := &http.Server{
-		Addr:    ":" + vars.Port,
+		Addr:    ":" + vars.Server.Port,
 		Handler: h,
 	}
 

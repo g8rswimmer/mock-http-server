@@ -10,20 +10,26 @@ import (
 const (
 	port        = "MOCK_HTTP_SRVR_PORT"
 	defaultPort = "8080"
+	directory   = "MOCK_HTTP_HANDLER_DIR"
 )
 
 type Server struct {
 	Port string
 }
+
+type Handler struct {
+	Directory string
+}
+
 type Vars struct {
-	Server Server
+	Server  Server
+	Handler Handler
 }
 
 func MustLoad() *Vars {
 	v := &Vars{
-		Server: Server{
-			Port: mustPort(),
-		},
+		Server:  mustServer(),
+		Handler: mustHandler(),
 	}
 
 	enc, err := json.MarshalIndent(v, "", "    ")
@@ -32,6 +38,12 @@ func MustLoad() *Vars {
 		log.Println(string(enc))
 	}
 	return v
+}
+
+func mustServer() Server {
+	return Server{
+		Port: mustPort(),
+	}
 }
 
 func mustPort() string {
@@ -44,4 +56,10 @@ func mustPort() string {
 		log.Panicf("%s not defined as an init %v", port, err)
 	}
 	return p
+}
+
+func mustHandler() Handler {
+	return Handler{
+		Directory: os.Getenv(directory),
+	}
 }

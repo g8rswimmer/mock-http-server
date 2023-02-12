@@ -19,7 +19,7 @@ func main() {
 	vars := config.MustLoad()
 
 	log.Println("Happy Mocking...")
-	srvrShutdown := server.Start(vars.Server)
+	srvrShutdown := server.Start(vars)
 	defer srvrShutdown(ctx)
 
 	sigs := make(chan os.Signal, 1)

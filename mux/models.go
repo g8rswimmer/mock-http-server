@@ -1,10 +1,8 @@
 package mux
 
-type Handler struct {
-	Path     Path        `json:"path"`
-	Method   string      `json:"method"`
-	Request  interface{} `json:"request"`
-	Response interface{} `json:"response"`
+type MockHandler struct {
+	Path   Path   `json:"path"`
+	Method string `json:"method"`
 }
 
 type Path struct {

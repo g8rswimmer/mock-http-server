@@ -1,2 +1,2 @@
 run-default:
-	go run *.go 
+	MOCK_HTTP_HANDLER_DIR=_mock_handlers go run *.go 
