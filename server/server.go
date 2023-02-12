@@ -13,7 +13,7 @@ import (
 
 type Shutdown func(context.Context)
 
-func Start(vars *config.Vars) Shutdown {
+func Start(vars config.Server) Shutdown {
 
 	h := mux.New()
 

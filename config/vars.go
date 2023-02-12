@@ -8,17 +8,22 @@ import (
 )
 
 const (
-	port        = "MOCK_HTTP_PORT"
+	port        = "MOCK_HTTP_SRVR_PORT"
 	defaultPort = "8080"
 )
 
-type Vars struct {
+type Server struct {
 	Port string
+}
+type Vars struct {
+	Server Server
 }
 
 func MustLoad() *Vars {
 	v := &Vars{
-		Port: mustPort(),
+		Server: Server{
+			Port: mustPort(),
+		},
 	}
 
 	enc, err := json.MarshalIndent(v, "", "    ")
@@ -36,7 +41,7 @@ func mustPort() string {
 	}
 	_, err := strconv.Atoi(p)
 	if err != nil {
-		log.Panicf("MOCK_HTTP_PORT not defined as an init %v", err)
+		log.Panicf("%s not defined as an init %v", port, err)
 	}
 	return p
 }
