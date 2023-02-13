@@ -10,8 +10,8 @@ func getMockHandler(req *http.Request, mockHandlers []*MockHandler) (*MockHandle
 	handlers := map[string]*MockHandler{}
 
 	for _, mh := range mockHandlers {
-		if mh.Path.Pattern == p {
-			method := strings.ToUpper(mh.Method)
+		if mh.Request.Path.Pattern == p {
+			method := strings.ToUpper(mh.Request.Method)
 			if method == "" {
 				method = http.MethodGet
 			}

@@ -1,0 +1,14 @@
+{
+    "request" : {
+        "method": "GET",
+        "path": {
+            "pattern": "/test/handler"    
+        }
+    },
+    "response": {
+        "status_code": 200,
+        "body": {
+            "message": "get handler was executed"
+        }
+    }
+}

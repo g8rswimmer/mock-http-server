@@ -2,7 +2,6 @@ package mux
 
 import (
 	"errors"
-	"fmt"
 	"html"
 	"log"
 	"net/http"
@@ -24,7 +23,9 @@ func Must(vars config.Handler) http.Handler {
 func newHandler(mockHandlers []*MockHandler) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		_, err := getMockHandler(r, mockHandlers)
+		log.Printf("Request, %q\r\n", html.EscapeString(r.URL.Path))
+
+		handler, err := getMockHandler(r, mockHandlers)
 		var mockErr *Error
 		switch {
 		case errors.As(err, &mockErr):
@@ -34,6 +35,7 @@ func newHandler(mockHandlers []*MockHandler) func(http.ResponseWriter, *http.Req
 			log.Panic(err)
 		default:
 		}
-		fmt.Fprintf(w, "Request, %q\r\n", html.EscapeString(r.URL.Path))
+
+		handler.Response.Send(w)
 	}
 }

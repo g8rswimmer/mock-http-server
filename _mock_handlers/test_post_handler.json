@@ -1,0 +1,14 @@
+{
+    "request" : {
+        "method": "POST",
+        "path": {
+            "pattern": "/test/handler"    
+        }
+    },
+    "response": {
+        "status_code": 201,
+        "body": {
+            "message": "post handler was executed"
+        }
+    }
+}
