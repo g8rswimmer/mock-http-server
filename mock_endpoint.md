@@ -29,6 +29,17 @@ The mock request supports
     * Varaibles - this is where a variable can be used to validate a part of the path.  The variable is define by `{label}`.
          * Example: `/my/variable/path/{varaible}`
 
+Here is an example of defining a request for a mock.
+
+```
+    "request" : {
+        "method": "POST",
+        "path": {
+            "pattern": "/test/handler"    
+        }
+    },
+```
+
 ### Request Path Variable
 Path variables can be used to validate a path part using `regex`, `valiation`, etc.  The path variable is defined between `{}`.  The list of variables define the label and the validation func that can be used.
 
@@ -47,17 +58,6 @@ The following example will compare the `id` label with regex for a path part sta
                 }
             ]    
         }
-```
-
-Here is an example of defining a request for a mock.
-
-```
-    "request" : {
-        "method": "POST",
-        "path": {
-            "pattern": "/test/handler"    
-        }
-    },
 ```
 
 ## Response
