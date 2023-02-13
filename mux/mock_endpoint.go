@@ -9,13 +9,13 @@ func getMockEndpoint(req *http.Request, mockEndpoints []*MockEndpoint) (*MockEnd
 	p := req.URL.Path
 	endpoints := map[string]*MockEndpoint{}
 
-	for _, mh := range mockEndpoints {
-		if mh.Request.Path.Pattern == p {
-			method := strings.ToUpper(mh.Request.Method)
+	for _, mp := range mockEndpoints {
+		if err := comparePath(p, mp.Request.Path); err == nil {
+			method := strings.ToUpper(mp.Request.Method)
 			if method == "" {
 				method = http.MethodGet
 			}
-			endpoints[method] = mh
+			endpoints[method] = mp
 		}
 	}
 	h, ok := endpoints[req.Method]
