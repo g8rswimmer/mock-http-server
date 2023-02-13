@@ -43,6 +43,8 @@ Here is an example of defining a request for a mock.
 ### Request Path Variable
 Path variables can be used to validate a path part using `regex`, `valiation`, etc.  The path variable is defined between `{}`.  The list of variables define the label and the validation func that can be used.
 
+Values are defined by `func:pattern` where the `pattern` will be supplied to the `func` for evaluation.
+
 Supported validation functions:
 * `reqex`
 
