@@ -27,7 +27,7 @@ The mock request supports
 * Request method defines `GET`, `POST`, etc.
 * Path like `/this/is/my/path
 
-Here is an example of defing a request for a mock.
+Here is an example of defining a request for a mock.
 
 ```
     "request" : {
@@ -42,3 +42,14 @@ Here is an example of defing a request for a mock.
 The mock response supports
 * Response status code, `200`, `400`, etc.
 * Reponse body as a JSON object
+
+Here is an exmaple of defining a response for a mock.
+
+```
+    "response": {
+        "status_code": 200,
+        "body": {
+            "message": "get handler was executed"
+        }
+    }
+```
