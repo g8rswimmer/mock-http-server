@@ -26,6 +26,28 @@ The handler definition contains:
 The mock request supports
 * Request method defines `GET`, `POST`, etc.
 * Path like `/this/is/my/path
+    * Varaibles - this is where a variable can be used to validate a part of the path.  The variable is define by `{label}`.
+         * Example: `/my/variable/path/{varaible}`
+
+### Request Path Variable
+Path variables can be used to validate a path part using `regex`, `valiation`, etc.  The path variable is defined between `{}`.  The list of variables define the label and the validation func that can be used.
+
+Supported validation functions:
+* `reqex`
+
+#### Example
+The following example will compare the `id` label with regex for a path part starting with `t` and ending with `ing`.
+```
+        "path": {
+            "pattern": "/test/handler/{id}",
+            "variables": [
+                {
+                    "label": "id",
+                    "value": "regex:t([a-z]+)ing"
+                }
+            ]    
+        }
+```
 
 Here is an example of defining a request for a mock.
 
