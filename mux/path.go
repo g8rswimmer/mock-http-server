@@ -6,14 +6,17 @@ import (
 	"log"
 	"regexp"
 	"strings"
+
+	"github.com/go-playground/validator/v10"
 )
 
 const (
-	pathSeperator = "/"
-	pathVarPrefix = "{"
-	pathVarSuffix = "}"
-	variableSep   = ":"
-	patternRegex  = "regex"
+	pathSeperator    = "/"
+	pathVarPrefix    = "{"
+	pathVarSuffix    = "}"
+	variableSep      = ":"
+	patternRegex     = "regex"
+	patternValidator = "validator"
 )
 
 func comparePath(reqPath string, mockPath Path) error {
@@ -65,6 +68,8 @@ func retrivePathVariable(part string) (string, func(string, string) error, error
 	switch p[0] {
 	case patternRegex:
 		return pattern, compareRegex, nil
+	case patternValidator:
+		return pattern, compareValidator, nil
 	default:
 		return "", nil, fmt.Errorf("request path func[%s] not supported", p[0])
 	}
@@ -80,4 +85,11 @@ func compareRegex(reqPart string, pattern string) error {
 	default:
 		return nil
 	}
+}
+
+func compareValidator(reqPart string, pattern string) error {
+	if err := validator.New().Var(reqPart, pattern); err != nil {
+		return fmt.Errorf("request part validator %w", err)
+	}
+	return nil
 }
