@@ -5,20 +5,20 @@ import (
 	"strings"
 )
 
-func getMockHandler(req *http.Request, mockHandlers []*MockHandler) (*MockHandler, error) {
+func getMockEndpoint(req *http.Request, mockEndpoints []*MockEndpoint) (*MockEndpoint, error) {
 	p := req.URL.Path
-	handlers := map[string]*MockHandler{}
+	endpoints := map[string]*MockEndpoint{}
 
-	for _, mh := range mockHandlers {
+	for _, mh := range mockEndpoints {
 		if mh.Request.Path.Pattern == p {
 			method := strings.ToUpper(mh.Request.Method)
 			if method == "" {
 				method = http.MethodGet
 			}
-			handlers[method] = mh
+			endpoints[method] = mh
 		}
 	}
-	h, ok := handlers[req.Method]
+	h, ok := endpoints[req.Method]
 	if !ok {
 		return nil, &Error{
 			statusCode: http.StatusNotFound,

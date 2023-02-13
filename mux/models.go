@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type MockHandler struct {
+type MockEndpoint struct {
 	Request  Request  `json:"request"`
 	Response Response `json:"response"`
 }

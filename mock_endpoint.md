@@ -37,3 +37,8 @@ Here is an example of defing a request for a mock.
         }
     },
 ```
+
+## Response
+The mock response supports
+* Response status code, `200`, `400`, etc.
+* Reponse body as a JSON object
