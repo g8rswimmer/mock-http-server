@@ -3,6 +3,7 @@ package mux
 import (
 	"errors"
 	"fmt"
+	"log"
 	"regexp"
 	"strings"
 )
@@ -34,14 +35,23 @@ func comparePath(reqPath string, mockPath Path) error {
 			return fmt.Errorf("request path part do not match actual[%s] expected[%s]", reqParts[i], mp)
 		default:
 		}
-
-		pattern, compareFunc, err := retrivePathVariable(mp[1 : len(mockParts)-1])
-		if err != nil {
-			return err
+		log.Println(mp, reqParts[i])
+		label := mp[1 : len(mockParts)-1]
+		for _, v := range mockPath.Variables {
+			if v.Label == label {
+				pattern, compareFunc, err := retrivePathVariable(v.Value)
+				if err != nil {
+					log.Println(err.Error())
+					return err
+				}
+				if err := compareFunc(reqParts[i], pattern); err != nil {
+					log.Println(err.Error())
+					return err
+				}
+				return nil
+			}
 		}
-		if err := compareFunc(reqParts[i], pattern); err != nil {
-			return err
-		}
+		return fmt.Errorf("request path unable to find variable label[%s]", label)
 	}
 	return nil
 }
@@ -51,7 +61,7 @@ func retrivePathVariable(part string) (string, func(string, string) error, error
 	if len(p) == 0 {
 		return "", nil, errors.New("part has not func")
 	}
-	pattern := part[len(p[0])-1:]
+	pattern := part[len(p[0])+1:]
 	switch p[0] {
 	case patternRegex:
 		return pattern, compareRegex, nil

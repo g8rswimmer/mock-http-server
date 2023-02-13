@@ -21,7 +21,7 @@ type Path struct {
 }
 
 type Variable struct {
-	Label string `json:"name"`
+	Label string `json:"label"`
 	Value string `json:"value"`
 }
 
