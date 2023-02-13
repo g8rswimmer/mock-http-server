@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 )
 
-func loadFromDirectory(dir string) ([]*MockHandler, error) {
-	handlers := []*MockHandler{}
+func loadFromDirectory(dir string) ([]*MockEndpoint, error) {
+	endpoints := []*MockEndpoint{}
 	pathErr := filepath.Walk(dir, func(path string, info fs.FileInfo, err error) error {
 		switch {
 		case err != nil:
@@ -19,29 +19,29 @@ func loadFromDirectory(dir string) ([]*MockHandler, error) {
 		default:
 		}
 
-		mh, err := loadMockHandler(path, info)
+		mh, err := loadMockEndpoint(path, info)
 		if err != nil {
 			return err
 		}
-		handlers = append(handlers, mh)
+		endpoints = append(endpoints, mh)
 		return nil
 	})
 	if pathErr != nil {
 		return nil, fmt.Errorf("file path walk err: %w", pathErr)
 	}
-	return handlers, nil
+	return endpoints, nil
 }
 
-func loadMockHandler(path string, info fs.FileInfo) (*MockHandler, error) {
+func loadMockEndpoint(path string, info fs.FileInfo) (*MockEndpoint, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, fmt.Errorf("load mock handler file open [%s] %w", path, err)
 	}
 	defer f.Close()
 
-	h := &MockHandler{}
-	if err := json.NewDecoder(f).Decode(h); err != nil {
+	ep := &MockEndpoint{}
+	if err := json.NewDecoder(f).Decode(ep); err != nil {
 		return nil, fmt.Errorf("load mock handler file [%s] decode %w", path, err)
 	}
-	return h, nil
+	return ep, nil
 }
