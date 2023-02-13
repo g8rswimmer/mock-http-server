@@ -22,7 +22,7 @@ A makefile is provide to run the server in 'default' mode.
 | Variable              | Value           |
 |-----------------------|-----------------|
 | MOCK_HTTP_SRVR_PORT   | 8080            |
-| MOCK_HTTP_HANDLER_DIR | _mock_handlers_ |
+| MOCK_HTTP_HANDLER_DIR | _mock_endpoints |
 
 ```
 make run-default
