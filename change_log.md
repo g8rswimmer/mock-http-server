@@ -5,3 +5,6 @@ This is the change log for releases.
 *  Simple server configuration
 *  Simple request path and method pattern valiation
 *  Simple response status code and body
+
+## v1.0.0-beta2
+* Added path variable validation
