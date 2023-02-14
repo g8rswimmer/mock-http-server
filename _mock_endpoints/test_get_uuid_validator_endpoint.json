@@ -1,0 +1,20 @@
+{
+    "request" : {
+        "method": "GET",
+        "path": {
+            "pattern": "/test/handler/uuid/{id}",
+            "variables": [
+                {
+                    "label": "id",
+                    "value": "validator:uuid"
+                }
+            ]    
+        }
+    },
+    "response": {
+        "status_code": 200,
+        "body": {
+            "message": "get handler with uuid validator was executed"
+        }
+    }
+}

@@ -38,8 +38,7 @@ func comparePath(reqPath string, mockPath Path) error {
 			return fmt.Errorf("request path part do not match actual[%s] expected[%s]", reqParts[i], mp)
 		default:
 		}
-		log.Println(mp, reqParts[i])
-		label := mp[1 : len(mockParts)-1]
+		label := mp[1 : len(mp)-1]
 		for _, v := range mockPath.Variables {
 			if v.Label == label {
 				pattern, compareFunc, err := retrivePathVariable(v.Value)
@@ -88,6 +87,7 @@ func compareRegex(reqPart string, pattern string) error {
 }
 
 func compareValidator(reqPart string, pattern string) error {
+	log.Println(reqPart, pattern)
 	if err := validator.New().Var(reqPart, pattern); err != nil {
 		return fmt.Errorf("request part validator %w", err)
 	}
