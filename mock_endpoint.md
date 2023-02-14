@@ -26,6 +26,8 @@ The handler definition contains:
 The mock request supports
 * Request method defines `GET`, `POST`, etc.
 * Path like `/this/is/my/path
+    * Varaibles - this is where a variable can be used to validate a part of the path.  The variable is define by `{label}`.
+         * Example: `/my/variable/path/{varaible}`
 
 Here is an example of defining a request for a mock.
 
@@ -36,6 +38,29 @@ Here is an example of defining a request for a mock.
             "pattern": "/test/handler"    
         }
     },
+```
+
+### Request Path Variable
+Path variables can be used to validate a path part using `regex`, `valiation`, etc.  The path variable is defined between `{}`.  The list of variables define the label and the validation func that can be used.
+
+Values are defined by `func:pattern` where the `pattern` will be supplied to the `func` for evaluation.
+
+Supported validation functions:
+* `reqex` - Regex patthen 
+* `validator` - uses the go [validator](https://github.com/go-playground/validator) library to validate the pattern
+
+#### Example
+The following example will compare the `id` label with regex for a path part starting with `t` and ending with `ing`.
+```
+        "path": {
+            "pattern": "/test/handler/{id}",
+            "variables": [
+                {
+                    "label": "id",
+                    "value": "regex:t([a-z]+)ing"
+                }
+            ]    
+        }
 ```
 
 ## Response
