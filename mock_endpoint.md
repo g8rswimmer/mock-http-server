@@ -47,7 +47,7 @@ Values are defined by `func:pattern` where the `pattern` will be supplied to the
 
 Supported validation functions:
 * `reqex` - Regex patthen 
-* `validator` - uses the go [validator](https://github.com/go-playground/validator) library to valid the pattern
+* `validator` - uses the go [validator](https://github.com/go-playground/validator) library to validate the pattern
 
 #### Example
 The following example will compare the `id` label with regex for a path part starting with `t` and ending with `ing`.
