@@ -46,7 +46,8 @@ Path variables can be used to validate a path part using `regex`, `valiation`, e
 Values are defined by `func:pattern` where the `pattern` will be supplied to the `func` for evaluation.
 
 Supported validation functions:
-* `reqex`
+* `reqex` - Regex patthen 
+* `validator` - uses the go [validator](https://github.com/go-playground/validator) library to valid the pattern
 
 #### Example
 The following example will compare the `id` label with regex for a path part starting with `t` and ending with `ing`.
